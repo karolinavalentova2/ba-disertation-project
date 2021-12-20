@@ -1,0 +1,54 @@
+@import "./general/colors.scss";
+@import "./general/typography.scss";
+@import "./general/buttons.scss";
+@import "./general/icons.scss";
+@import "./general/forms.scss";
+@import "./general/navigation.scss";
+@import "./general/layout.scss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* reset */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: unset;
+}
+
+html, body {
+  height: 100%;
+}
+
+
+html {
+  font-size: 62.5%; //1 rem = 10px; 10px/16px = 62.5%
+  font-family: Roboto, sans-serif; // Roboto is the default font family
+
+  @media screen and (max-width: 75em) {
+    font-size: 56.25%;
+  }
+
+  @media screen and (max-width: 56.25em) {
+    font-size: 50%;
+  }
+}
+
+body {
+  overflow-x: hidden;
+}
+
+p,
+h1, h2, h3, h4, h5, h6 {
+  cursor: context-menu;
+}

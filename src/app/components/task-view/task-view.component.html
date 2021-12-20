@@ -1,0 +1,99 @@
+<div class="task-view">
+  <mat-dialog-content class="mat-typography">
+    <div class="">
+      <header>
+        <div>
+          <h2 mat-dialog-title>{{data.name}}</h2>
+          <p>Created {{data.createdAt}} by {{data.author}}</p>
+        </div>
+        <div>
+          <button mat-button class="primary-basic round">
+            <mat-icon class="material-icons">play_circle</mat-icon>
+            Start timer
+          </button>
+        </div>
+      </header>
+
+      <section class="task-info">
+      <span class="assignee">
+        <div>{{data.assignedTo}}</div>
+      </span>
+        <span class="due-date"><div>{{data.dueDate}}</div></span>
+        <span class="track"><div>{{data.trackedTime}}</div></span>
+      </section>
+
+      <section class="co-box contributors">
+        <div class="sub-label">Contributors</div>
+
+        <div class="content">
+          <span class="item" *ngFor="let contributor of data.contributors">{{contributor.name}}</span>
+          <span class="item new">Add</span>
+        </div>
+      </section>
+
+      <section class="description">
+        <div class="sub-label">Description</div>
+
+        <div class="content">
+          <p>{{data.description}}</p>
+        </div>
+      </section>
+
+      <section class="subtasks">
+        <div class="sub-label">Subtasks</div>
+
+        <div class="content">
+          <div class="item" *ngFor="let subtask of data.subTasks">
+            <span>{{subtask.name}}</span>
+            <span>{{subtask.trackedTime}}</span>
+            <button class="btn">
+              <mat-icon class="material-icons">more_vertical</mat-icon>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <aside>
+      <button class="btn">
+        <mat-icon class="material-icons">more_vertical</mat-icon>
+      </button>
+      <button class="btn">
+        <mat-icon class="material-icons">link</mat-icon>
+      </button>
+      <button class="btn">
+        <mat-icon class="material-icons">attach_file</mat-icon>
+      </button>
+      <button class="btn">
+        <mat-icon class="material-icons">insights</mat-icon>
+      </button>
+      <button class="btn">
+        <mat-icon class="material-icons">history</mat-icon>
+      </button>
+    </aside>
+  </mat-dialog-content>
+
+  <section class="comments">
+    <div class="sub-label">Comments</div>
+
+    <div class="content">
+      <div>
+        <p>Learn one way to build applications with Angular and reuse your code and abilities to build
+          apps for any deployment target. For web, mobile web, native mobile and native desktop.</p>
+
+        <form action="">
+          <mat-form-field appearance="fill">
+            <textarea matInput placeholder="Write you message here.."></textarea>
+          </mat-form-field>
+
+          <button class="btn primary">Comment</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+<!--<mat-dialog-actions align="end">-->
+<!--  <button mat-button mat-dialog-close>Cancel</button>-->
+<!--  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>-->
+<!--</mat-dialog-actions>-->

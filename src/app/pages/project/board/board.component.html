@@ -1,0 +1,29 @@
+<div cdkDropList cdkDropListOrientation="horizontal"
+     [cdkDropListData]="containers"
+     (cdkDropListDropped)="dropGroup($event)">
+  <div class="example-container" *ngFor="let container of containers" cdkDrag [cdkDragData]="container">
+    <h2>{{container.name}}</h2>
+    <button mat-button (click)="doAddNewTask(container.id)">New task</button>
+    <div
+      cdkDropList
+      id={{container.id}}
+      [cdkDropListData]="container.tasks"
+      (cdkDropListDropped)="dropItem($event)"
+      [cdkDropListConnectedTo]="getConnectedList()">
+      <mat-card *ngFor="let item of container.tasks" cdkDrag [cdkDragData]="item">
+        <app-task [taskData]="item" (click)="openTask(container.id, item.id, item.isLocalTaskOnly)"></app-task>
+      </mat-card>
+      <mat-card style="min-height: 100px;visibility: hidden" *ngIf="!container.tasks.length" cdkDrag></mat-card>
+    </div>
+  </div>
+  <div class="example-container">
+    <h2 (click)="doCreateColumn()" *ngIf="!viewState.newColumn">New column</h2>
+
+    <form class="new-column-form" *ngIf="viewState.newColumn">
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Column name</mat-label>
+        <input matInput placeholder="Ex. To Do" value="" (focusout)="doSaveNewColumn()" [formControl]="viewState.newColumnFormControl" [cdkTrapFocusAutoCapture]="true" [cdkTrapFocus]="true">
+      </mat-form-field>
+    </form>
+  </div>
+</div>

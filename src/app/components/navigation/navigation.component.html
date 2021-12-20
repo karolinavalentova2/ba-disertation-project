@@ -1,0 +1,35 @@
+<mat-sidenav-container autosize>
+  <mat-sidenav #sidenav mode="side" opened="true" [ngClass]="{expanded: opened}">
+    <mat-nav-list>
+
+      <mat-list-item (click)="opened = !opened">
+        <mat-icon *ngIf="opened" class="material-icons">menu_open</mat-icon>
+        <mat-icon *ngIf="!opened" class="material-icons">menu</mat-icon>
+      </mat-list-item>
+
+      <mat-list-item [routerLink]="'dashboard'">
+        <mat-icon class="material-icons-outlined">home</mat-icon>
+        <span>Home</span>
+      </mat-list-item>
+
+      <mat-list-item [routerLink]="'mytasks'">
+        <mat-icon class="material-icons-outlined">task_alt</mat-icon>
+        <span>My tasks</span>
+      </mat-list-item>
+
+      <mat-list-item [routerLink]="'inbox'">
+        <mat-icon class="material-icons-outlined">notifications</mat-icon>
+        <span>Inbox</span>
+      </mat-list-item>
+
+      <mat-list-item [routerLink]="'reports'">
+        <mat-icon class="material-icons">insights</mat-icon>
+        <span>Reports</span>
+      </mat-list-item>
+
+    </mat-nav-list>
+
+    <app-teams *ngIf="opened"></app-teams>
+  </mat-sidenav>
+
+</mat-sidenav-container>

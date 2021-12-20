@@ -1,0 +1,58 @@
+@import "../../../styles/general/typography";
+@import "../../../styles/general/colors";
+
+.task-view {
+  //display: flex;
+
+  mat-dialog-content {
+    display: flex;
+    overflow: unset;
+  }
+
+  section {
+    margin-bottom: 25px;
+
+    &.comments .content {
+      background-color: $color-dirty-white;
+      padding: 20px;
+      margin-left: -20px;
+      margin-right: -20px;
+
+      > div {
+        max-width: calc(100% - 72px);
+      }
+
+      form {
+        mat-form-field {
+          width: 100%;
+
+          textarea {
+            width: 100%;
+            padding: 10px;
+          }
+        }
+
+        button {
+          display: block;
+          margin-left: auto;
+        }
+      }
+    }
+  }
+
+  aside {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+  }
+}
+
+header {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+
+  h2 {
+    margin-bottom: 5px;
+  }
+}

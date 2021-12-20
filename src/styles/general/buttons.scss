@@ -1,0 +1,94 @@
+@import "./colors";
+/* ************************************* */
+/* *********** BUTTON RESET ************ */
+
+button {
+  -webkit-appearance: none;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 0;
+  border: none;
+}
+
+/* ************************************* */
+
+button {
+  &.btn {
+    padding: 8px 14px;
+    border-radius: 5px;
+    background-color: $color-white;
+  }
+
+  .basic {}
+
+  &.primary {
+    border-radius: 10px;
+    background-color: $secondary-color;
+    border: 1px solid $secondary-color;
+    color: $color-white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .2);
+
+    &:hover {
+      background-color: $secondary-color-hover;
+      border: 1px solid $secondary-color-hover;
+    }
+  }
+
+  &.primary-basic {
+    border-radius: 10px;
+    background-color: $color-white;
+    border: 1px solid $secondary-color;
+    color: $secondary-color;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .2);
+
+    &:hover {
+      background-color: $secondary-color;
+      border: 1px solid $secondary-color;
+      color: $color-white;
+    }
+  }
+
+  &.secondary {
+    border-radius: 10px;
+    background-color: $primary-color;
+    border: 1px solid $primary-color;
+    color: $color-white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .2);
+
+    &:hover {
+      background-color: $primary-color-hover;
+      border: 1px solid $primary-color-hover;
+    }
+  }
+
+  &.secondary-basic {
+    border-radius: 10px;
+    background-color: $color-white;
+    border: 1px solid $primary-color;
+    color: $primary-color;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .2);
+
+    &:hover {
+      background-color: $primary-color;
+      border: 1px solid $primary-color;
+      color: $color-white;
+    }
+  }
+
+  &.round {
+    border-radius: 50px;
+  }
+}
+
+//.add-new-button {
+//  padding: .7rem 2rem;
+//  color: $color-white;
+//  font-size: 1.3rem;
+//  font-weight: 500;
+//  background-color: $tertiary-color-blue;
+//  box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, 0.2);
+//
+//  &:hover {
+//    background-color: $tertiary-color-blue-dark;
+//  }
+//}

@@ -1,0 +1,49 @@
+<mat-card-header>
+  <mat-card-title *ngIf="!taskData.isLocalTaskOnly">{{taskData.name}}</mat-card-title>
+  <mat-card-title *ngIf="taskData.isLocalTaskOnly">
+    <form class="new-task-form">
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Task name</mat-label>
+        <input matInput placeholder="Ex. Bake the pizza" value="" (focusout)="doSaveNewTask()" [formControl]="viewState.newTaskFormControl" [cdkTrapFocusAutoCapture]="true" [cdkTrapFocus]="true">
+      </mat-form-field>
+    </form>
+  </mat-card-title>
+  <mat-icon class="material-icons-outlined" [matMenuTriggerFor]="taskMenu">more_vert</mat-icon>
+  <mat-menu #taskMenu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>Redial</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>voicemail</mat-icon>
+      <span>Check voice mail</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+  </mat-menu>
+</mat-card-header>
+<mat-card-actions>
+
+  <div class="left">
+    <div class="action-item assignee active">
+      <mat-icon class="material-icons-outlined">face</mat-icon>
+    </div>
+    <div class="action-item due-date active">
+      <mat-icon class="material-icons">calendar_today</mat-icon>
+      <span>Dec 12</span>
+    </div>
+    <div class="action-item track active">
+      <mat-icon class="material-icons">schedule</mat-icon>
+      <span>1h</span>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="action-item comment active">
+      <mat-icon class="material-icons-outlined">chat_bubble</mat-icon>
+      <span>1</span>
+    </div>
+  </div>
+</mat-card-actions>

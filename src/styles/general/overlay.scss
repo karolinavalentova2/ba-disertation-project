@@ -1,0 +1,23 @@
+::ng-deep .task-list-open .cdk-overlay-backdrop {
+  background-color: transparent;
+}
+
+::ng-deep .task-list-open .cdk-global-overlay-wrapper {
+  justify-content: flex-end !important;
+  align-items: flex-start !important;
+  top: 173px;
+}
+::ng-deep .task-list-open .cdk-global-overlay-wrapper .cdk-overlay-pane {
+  max-width: 700px !important;
+  height: 100%;
+}
+::ng-deep .task-list-open .cdk-global-overlay-wrapper .cdk-overlay-pane .mat-dialog-content {
+  max-height: unset;
+}
+
+
+.task-view-dialog-container {
+  background-color: transparent;
+}
+
+

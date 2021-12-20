@@ -1,0 +1,115 @@
+@import "../../../../../styles/general/colors";
+
+mat-card-header {
+  width: 100%;
+  justify-content: space-between;
+
+  ::ng-deep .mat-card-header-text {
+    margin-left: 0;
+  }
+
+  .mat-card-title {
+    margin-left: 0;
+    font-size: 1.8rem;
+    font-weight: 400;
+  }
+
+  > button {
+    padding: 0;
+    min-width: 36px;
+
+    mat-icon {
+      opacity: 0;
+    }
+  }
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 0;
+  margin-right: 0;
+  height: 45px;
+  margin-bottom: 0;
+
+  mat-icon {
+    font-size: 31px;
+    width: 31px;
+    height: 31px;
+    text-align: center;
+  }
+
+  .left {
+    display: flex;
+    align-items: center;
+
+    .action-item {
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+
+      &.track span {
+        color: #6200EE;
+      }
+
+      &.due-date span {
+        color: #FA5E65;
+      }
+
+      mat-icon {
+        width: 31px;
+        height: 31px;
+        text-align: center;
+      }
+
+      &.inactive {
+        mat-icon {
+          color: $color-light-grey;
+          border-radius: 50px;
+          border: 2px dotted #DCDCDC;
+          font-size: 20px;
+          line-height: 26px;
+          opacity: 0;
+        }
+      }
+
+      &.active.due-date,
+      &.active.track {
+        mat-icon {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .right {
+    .comment {
+      position: relative;
+
+      mat-icon {
+        color: $color-dirty-white;
+      }
+
+      span {
+        position: absolute;
+        left: 50%;
+        top: 4px;
+        transform: translate(-50%);
+        font-size: 12px;
+      }
+
+      &.inactive {
+        display: none;
+      }
+    }
+  }
+}
+
+.mat-menu-item.delete {
+  color: #FA5E65;
+  border-top: 1px solid #DCDCDC;
+
+  mat-icon {
+    color: #FA5E65;
+  }
+}

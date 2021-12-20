@@ -1,0 +1,19 @@
+@import "../../../../styles/general/colors";
+
+mat-nav-list {
+  mat-list-item {
+    color: #fff;
+  }
+}
+
+mat-tree {
+  background-color: transparent;
+
+  mat-tree-node {
+    color: #fff;
+  }
+
+  [aria-level="2"] {
+    background-color: $primary-color-hover;
+  }
+}

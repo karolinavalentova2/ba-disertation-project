@@ -1,0 +1,54 @@
+@import "../../../styles/general/colors";
+
+mat-sidenav-container {
+  height: 100%;
+  background-color: #F6F6F6;
+
+  mat-sidenav {
+    background-color: $primary-color;
+    width: 60px;
+    box-shadow: 3px 3px 6px rgba(0,0,0,.2);
+    transition: width 0.25s ease-out;
+
+    &.expanded {
+      width: 200px;
+      transition: width 0.25s ease-out;
+
+      mat-nav-list {
+
+        mat-list-item {
+
+          span {
+            opacity: 1;
+            transition: opacity 0.25s ease-out .1s;
+          }
+        }
+      }
+    }
+
+    mat-nav-list {
+
+      mat-list-item {
+        color: #fff;
+
+        mat-icon {
+          margin-right: 10px;
+        }
+
+        span {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
+
+mat-toolbar {
+  box-shadow: 3px 3px 6px rgba(0,0,0,.2);
+  background-color: #fff;
+  margin-bottom: 20px;
+}
+
+.main-view {
+  width: 100%;
+}

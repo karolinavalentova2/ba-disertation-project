@@ -1,0 +1,48 @@
+@import "./colors";
+
+/* EXAMPLE OF THE NAMING
+elementName__weight, regular weight is by default
+__m = medium
+__t = thin
+__sm = semibold
+..etc
+ */
+
+.sub-label {
+  font-size: 1.3rem;
+  color: $color-medium-grey;
+  margin-bottom: 5px;
+}
+
+.header3__m {
+  font-size: 3rem;
+  font-weight: 500;
+}
+
+.header2__m {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.par1__s {
+
+}
+
+.par2 {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.par3 {
+  font-size: 1.3rem;
+  font-weight: 400;
+
+  &__m {
+    font-weight: 500;
+  }
+}
+
+.par5 {
+  font-size: 1.5rem;
+  font-weight: 400;
+}

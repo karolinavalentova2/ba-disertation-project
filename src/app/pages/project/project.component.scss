@@ -1,0 +1,62 @@
+@import "../../../styles/general/colors";
+
+.view {
+  height: 100%;
+  padding: 20px;
+}
+
+::ng-deep .mat-toolbar-row {
+  height: 100%;
+}
+
+::ng-deep .mat-tab-group {
+  width: 100%;
+}
+
+::ng-deep .mat-tab-body-wrapper {
+  background-color: $color-dirty-white;
+  box-shadow: inset 1px 20px 10px -20px rgb(0 0 0 / 20%);
+}
+
+::ng-deep .mat-tab-header {
+  background-color: $color-white;
+}
+
+::ng-deep .mat-tab-group {
+  .mat-tab-label {
+    justify-content: flex-start;
+    font-size: 1.6rem;
+    opacity: 1;
+    font-weight: 600;
+    padding: 0 20px;
+
+    &:focus-within {
+      //background-color: #212121;
+    }
+
+    &.mat-tab-label-active {
+      .mat-tab-label-content {
+        position: relative;
+
+        &::after {
+          content: "";
+          height: 4px;
+          width: 100%;
+          background-color: #212121;
+          position: absolute;
+          bottom: -14px;
+          left: 0;
+        }
+      }
+    }
+  }
+
+  .mat-ink-bar {
+    display: none;
+  }
+}
+
+.mat-toolbar {
+  background-color: $color-white;
+}
+
