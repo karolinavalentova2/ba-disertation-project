@@ -12,9 +12,40 @@ export const MockProjectBoard: BoardModel[] = [
         id: 1,
         assignedTo: "Karolina",
         description: "test test test test",
-        subTasks: [],
+        subTasks: [
+          {
+            name: "test sub 1",
+            createdAt: new Date().toLocaleDateString(),
+            author: "Adrian",
+            id: 4,
+            assignedTo: "Karolina",
+            description: "test test test test",
+            subTasks: [],
+            dueDate: new Date().toLocaleDateString(),
+            contributors: [],
+            comments: [],
+            trackedTime: "6:00h",
+          },
+          {
+            name: "test sub 2",
+            createdAt: new Date().toLocaleDateString(),
+            author: "Adrian",
+            id: 5,
+            assignedTo: "Karolina",
+            description: "test test test test",
+            subTasks: [],
+            dueDate: new Date().toLocaleDateString(),
+            contributors: [],
+            comments: [],
+            trackedTime: "6:00h"
+          }
+        ],
+        totalTrackedSubtaskTime: "6:00h",
         dueDate: new Date().toLocaleDateString(),
-        contributors: [],
+        contributors: [
+          {name: "Jane doe", id: 1},
+          {name: "John doe", id: 2},
+        ],
         comments: [],
         trackedTime: "6:00h"
       }
@@ -32,6 +63,7 @@ export const MockProjectBoard: BoardModel[] = [
         assignedTo: "Karolina",
         description: "test test test test",
         subTasks: [],
+        totalTrackedSubtaskTime: "6:00h",
         dueDate: new Date().toLocaleDateString(),
         contributors: [],
         comments: [],

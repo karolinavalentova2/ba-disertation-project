@@ -1,22 +1,28 @@
 <div cdkDropList cdkDropListOrientation="horizontal"
      [cdkDropListData]="containers"
      (cdkDropListDropped)="dropGroup($event)">
-  <div class="example-container" *ngFor="let container of containers" cdkDrag [cdkDragData]="container">
-    <h2>{{container.name}}</h2>
-    <button mat-button (click)="doAddNewTask(container.id)">New task</button>
-    <div
-      cdkDropList
-      id={{container.id}}
-      [cdkDropListData]="container.tasks"
-      (cdkDropListDropped)="dropItem($event)"
-      [cdkDropListConnectedTo]="getConnectedList()">
+  <div class="board-column" *ngFor="let container of containers" cdkDrag [cdkDragData]="container">
+    <div class="board-column-header">
+      <h2>{{container.name}}</h2>
+      <div class="actions">
+        <button mat-button (click)="doAddNewTask(container.id)">
+          <mat-icon class="material-icons-outlined">add</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="content"
+         cdkDropList
+         id={{container.id}}
+         [cdkDropListData]="container.tasks"
+         (cdkDropListDropped)="dropItem($event)"
+         [cdkDropListConnectedTo]="getConnectedList()">
       <mat-card *ngFor="let item of container.tasks" cdkDrag [cdkDragData]="item">
-        <app-task [taskData]="item" (click)="openTask(container.id, item.id, item.isLocalTaskOnly)"></app-task>
+        <app-task [taskData]="item" (taskOpenAction)="openTask($event, container.id, item.isLocalTaskOnly)"></app-task>
       </mat-card>
       <mat-card style="min-height: 100px;visibility: hidden" *ngIf="!container.tasks.length" cdkDrag></mat-card>
     </div>
   </div>
-  <div class="example-container">
+  <div class="board-column">
     <h2 (click)="doCreateColumn()" *ngIf="!viewState.newColumn">New column</h2>
 
     <form class="new-column-form" *ngIf="viewState.newColumn">

@@ -1,4 +1,5 @@
 @import "./colors";
+
 /* ************************************* */
 /* *********** BUTTON RESET ************ */
 
@@ -17,6 +18,17 @@ button {
     padding: 8px 14px;
     border-radius: 5px;
     background-color: $color-white;
+
+    &.with-icon {
+      padding: 5px 10px 5px 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      mat-icon {
+        margin-right: 5px;
+      }
+    }
   }
 
   .basic {}
@@ -79,6 +91,7 @@ button {
     border-radius: 50px;
   }
 }
+
 
 //.add-new-button {
 //  padding: .7rem 2rem;

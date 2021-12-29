@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import { Subscription } from 'rxjs';
+import {NavigationService} from "../../services/navigation.service";
 
 @Component({
   selector: 'app-project',
@@ -11,7 +12,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
   public projectId?: string | null;
   private projectIdSub!: Subscription;
 
-  constructor(private route: ActivatedRoute,) {
+  constructor(private route: ActivatedRoute, private navigationService: NavigationService) {
 
   }
 
@@ -19,6 +20,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
     this.projectIdSub = this.route.paramMap.subscribe((obs) => {
       this.projectId = obs.get("id");
     })
+
+    this.navigationService.doSetPageTitle("Projects");
   }
 
   ngOnDestroy(): void {

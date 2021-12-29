@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
+import {NavigationService} from "../../services/navigation.service";
 
 @Component({
   selector: 'app-reports',
@@ -11,13 +12,16 @@ export class ReportsComponent implements OnInit {
   public projectId?: string | null;
   private projectIdSub!: Subscription;
 
-  constructor(private route: ActivatedRoute,) { }
+  constructor(private route: ActivatedRoute,private navigationService: NavigationService) { }
 
   ngOnInit(): void {
+    this.navigationService.doSetPageTitle("Reports");
+
     this.projectIdSub = this.route.paramMap.subscribe((obs) => {
       this.projectId = obs.get("id");
     })
   }
+
 
   ngOnDestroy(): void {
     this.projectIdSub.unsubscribe();

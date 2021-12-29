@@ -3,6 +3,15 @@
 /********************************/
 /******* Custom checkbox ********/
 
+.mat-menu-item.delete {
+  color: #FA5E65;
+  border-top: 1px solid #DCDCDC;
+
+  mat-icon {
+    color: #FA5E65;
+  }
+}
+
 //.arrow-icon {
 //  width: 1.5rem;
 //  height: 1.5rem;

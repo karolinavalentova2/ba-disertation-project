@@ -1,7 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
-import {TaskViewComponent} from "../../../../components/task-view/task-view.component";
-import {MatDialog} from "@angular/material/dialog";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TaskModel} from "../../../../models/taskModel";
 import {FormControl} from "@angular/forms";
 
@@ -13,6 +10,9 @@ import {FormControl} from "@angular/forms";
 export class TaskComponent implements OnInit {
   @Input()
   public taskData!: TaskModel;
+
+  @Output()
+  public taskOpenAction = new EventEmitter<string|number>();
 
   public viewState = {
     newTaskFormControl: new FormControl()
@@ -28,5 +28,12 @@ export class TaskComponent implements OnInit {
     this.taskData.name = this.viewState.newTaskFormControl.value;
     this.taskData.isLocalTaskOnly = false;
     this.viewState.newTaskFormControl.reset()
+  }
+
+  emitOpenTask(event: Event) {
+    if((event.target as HTMLElement).classList.contains('mat-menu-trigger')) {
+      return;
+    }
+    this.taskOpenAction.emit(this.taskData.id);
   }
 }

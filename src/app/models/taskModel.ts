@@ -9,6 +9,7 @@ export interface TaskModel {
   contributors: Array<{name: string, id: string | number}>;
   description: string;
   subTasks: Array<TaskModel>;
+  totalTrackedSubtaskTime?: string,
   comments: Array<any>;
   subtaskOf?: number | string;
   isLocalTaskOnly?: boolean;

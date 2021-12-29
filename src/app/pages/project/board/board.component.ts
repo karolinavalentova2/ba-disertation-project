@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {MatDialog} from "@angular/material/dialog";
 import {TaskViewComponent} from "../../../components/task-view/task-view.component";
@@ -11,7 +11,7 @@ import {BoardModel} from "../../../models/boardModel";
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
 
   public viewState = {
     newColumn: false,
@@ -19,6 +19,10 @@ export class BoardComponent implements OnInit {
   }
 
   constructor(public dialog: MatDialog) { }
+
+  ngOnDestroy(): void {
+
+    }
 
   containers: BoardModel[] = [...MockProjectBoard];
 
@@ -44,14 +48,16 @@ export class BoardComponent implements OnInit {
     moveItemInArray(this.containers, event.previousIndex, event.currentIndex);
   }
 
-  openTask(boardId: string | number, taskId: string | number, isLocalTaskOnly?: boolean) {
+  openTask(taskId: string | number, boardId: string | number, isLocalTaskOnly?: boolean) {
     if(isLocalTaskOnly) { return }
     const task = this.doGetTaskById(boardId, taskId);
     if(!task) { return; }
     console.log(task)
     const dialogRef = this.dialog.open(TaskViewComponent, {
       panelClass: 'task-view-dialog-container',
-      data: task,
+      data: {
+        task
+      },
     });
     document.body.classList.add("task-list-open");
 

@@ -1,11 +1,23 @@
 @import "../../../../styles/general/colors";
+@import "../../../../styles/general/layout";
 
-.example-container {
+.board-column {
   width: 400px;
   max-width: 100%;
-  margin: 0 25px 25px 0;
+  margin: 0 25px 0 0;
   display: inline-block;
   vertical-align: top;
+
+  .board-column-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .content {
+    max-height: calc(100% - 45px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 }
 
 .example-list {
@@ -36,7 +48,7 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.example-container {
+.board-column {
   background-color: #F0F0F0;
   border-radius: 10px;
   padding: 10px;
@@ -59,9 +71,10 @@ mat-card {
   cursor: pointer;
   border: 1px solid #fff;
   transition: all 0.25s ease-out;
+  margin-bottom: 10px;
 
-  &:not(:last-child) {
-    margin-bottom: 10px;
+  &:last-child {
+    margin-bottom: 5px;
   }
 
 

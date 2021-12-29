@@ -31,6 +31,7 @@ import { ProjectComponent } from './pages/project/project.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import {MatInputModule} from "@angular/material/input";
 import {A11yModule} from "@angular/cdk/a11y";
+import { SubtaskComponent } from './components/task-view/subtask/subtask.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {A11yModule} from "@angular/cdk/a11y";
     TaskComponent,
     TaskViewComponent,
     ProjectComponent,
-    ReportsComponent
+    ReportsComponent,
+    SubtaskComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,7 @@ import {A11yModule} from "@angular/cdk/a11y";
     MatTabsModule,
     MatInputModule,
     ReactiveFormsModule,
-    A11yModule
+    A11yModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,10 +9,33 @@ __sm = semibold
  */
 
 .sub-label {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   color: $color-medium-grey;
   margin-bottom: 5px;
 }
+
+.header1__b {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.header3__b,
+h3.header3__b {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.sub-header2 {
+  font-size: 1.6rem;
+  margin-bottom: 5px;
+}
+.sub-header2__b {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+
+//
 
 .header3__m {
   font-size: 3rem;

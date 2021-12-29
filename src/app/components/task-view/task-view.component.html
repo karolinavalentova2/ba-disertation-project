@@ -2,11 +2,14 @@
   <mat-dialog-content class="mat-typography">
     <div class="">
       <header>
-        <div>
-          <h2 mat-dialog-title>{{data.name}}</h2>
-          <p>Created {{data.createdAt}} by {{data.author}}</p>
+        <div class="left">
+          <button>
+            <mat-icon class="material-icons-outlined">check_circle_outline</mat-icon>
+          </button>
+          <h1 class="header1__b" mat-dialog-title>{{data.task.name}}</h1>
+          <p>Created {{data.task.createdAt}} by {{data.task.author}}</p>
         </div>
-        <div>
+        <div class="right">
           <button mat-button class="primary-basic round">
             <mat-icon class="material-icons">play_circle</mat-icon>
             Start timer
@@ -15,19 +18,45 @@
       </header>
 
       <section class="task-info">
-      <span class="assignee">
-        <div>{{data.assignedTo}}</div>
-      </span>
-        <span class="due-date"><div>{{data.dueDate}}</div></span>
-        <span class="track"><div>{{data.trackedTime}}</div></span>
+        <div>
+          <button class="assignee">
+            <mat-icon class="material-icons-outlined">face</mat-icon>
+            <div class="sub-header2">{{data.task.assignedTo}}</div>
+            <div class="sub-label">Assignee</div>
+          </button>
+        </div>
+
+        <div>
+          <button class="due-date">
+            <div class="sub-header2">{{data.task.dueDate}}</div>
+            <div class="sub-label">Due date</div>
+          </button>
+        </div>
+
+        <div>
+          <button class="track">
+            <div class="sub-header2">{{data.task.trackedTime}}</div>
+            <div class="sub-label">Time tracked</div>
+          </button>
+        </div>
       </section>
 
       <section class="co-box contributors">
         <div class="sub-label">Contributors</div>
 
         <div class="content">
-          <span class="item" *ngFor="let contributor of data.contributors">{{contributor.name}}</span>
-          <span class="item new">Add</span>
+          <div class="item" *ngFor="let contributor of data.task.contributors">
+            <button>
+              <mat-icon class="material-icons-outlined">face</mat-icon>
+              <span>{{contributor.name}}</span>
+            </button>
+          </div>
+          <div class="item new">
+            <button>
+              <mat-icon class="material-icons-outlined">face</mat-icon>
+              <span>Add</span>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -35,7 +64,7 @@
         <div class="sub-label">Description</div>
 
         <div class="content">
-          <p>{{data.description}}</p>
+          <p>{{data.task.description}}</p>
         </div>
       </section>
 
@@ -43,13 +72,21 @@
         <div class="sub-label">Subtasks</div>
 
         <div class="content">
-          <div class="item" *ngFor="let subtask of data.subTasks">
-            <span>{{subtask.name}}</span>
-            <span>{{subtask.trackedTime}}</span>
-            <button class="btn">
-              <mat-icon class="material-icons">more_vertical</mat-icon>
-            </button>
+
+          <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let subtask of data.task.subTasks" cdkDrag>
+              <app-subtask [taskData]="subtask"></app-subtask>
+            </div>
           </div>
+
+          <div class="summary-wrapper">
+            <button class="btn primary-basic with-icon" (click)="addNewSubtask()">
+              <mat-icon class="material-icons-outlined">add</mat-icon>
+              <span>Add subtask</span>
+            </button>
+            <div class="total-subtask-time">{{data.task.totalTrackedSubtaskTime}}</div>
+          </div>
+
         </div>
       </section>
 
@@ -79,16 +116,49 @@
 
     <div class="content">
       <div>
-        <p>Learn one way to build applications with Angular and reuse your code and abilities to build
-          apps for any deployment target. For web, mobile web, native mobile and native desktop.</p>
+        <div class="comment with-actions">
+          <div class="comment-actions">
+            <div class="left">
+              <div class="action-item profileIcon">
+                <mat-icon class="material-icons-outlined">face</mat-icon>
+              </div>
+              <div>John Doe</div>
+            </div>
+            <div class="right">
+              <div>22.07.2021</div>
 
-        <form action="">
-          <mat-form-field appearance="fill">
-            <textarea matInput placeholder="Write you message here.."></textarea>
-          </mat-form-field>
+              <button>
+                <mat-icon class="material-icons-outlined" [matMenuTriggerFor]="taskMenu">more_vert</mat-icon>
+              </button>
+              <mat-menu #taskMenu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon>edit</mat-icon>
+                  <span>Edit comment</span>
+                </button>
+                <button mat-menu-item class="delete">
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete comment</span>
+                </button>
+              </mat-menu>
+            </div>
+          </div>
+          <p class="text">Learn one way to build applications with Angular and reuse your code and abilities to build
+            apps for any deployment target. For web, mobile web, native mobile and native desktop.</p>
+        </div>
+
+        <form>
+          <div class="comment new">
+            <div class="action-item profileIcon">
+              <mat-icon class="material-icons-outlined">face</mat-icon>
+            </div>
+            <mat-form-field appearance="fill">
+              <textarea matInput cdkTextareaAutosize placeholder="Write you message here.."></textarea>
+            </mat-form-field>
+          </div>
 
           <button class="btn primary">Comment</button>
         </form>
+
       </div>
     </div>
   </section>
