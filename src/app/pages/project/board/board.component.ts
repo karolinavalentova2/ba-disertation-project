@@ -78,6 +78,20 @@ export class BoardComponent implements OnInit, OnDestroy {
       id: parseInt(String(Math.random() * 1000)),
       name: this.viewState.newColumnFormControl.value,
       tasks: [],
+      project: 'project 1',
+      author: {
+        id: 1,
+        name: 'Karolina',
+        email: 'test@test.com',
+        password: '1234',
+        verificationCode: 'string',
+        imagePath: './assets/profile_1.png',
+        created: new Date().toLocaleDateString(),
+        active: true,
+      },
+      created: new Date().toLocaleDateString(),
+      active: true,
+      boardIndex: this.containers.length,
     })
 
     this.viewState.newColumnFormControl.reset();
@@ -86,19 +100,41 @@ export class BoardComponent implements OnInit, OnDestroy {
   doAddNewTask(boardId: string | number) {
     for(let container of this.containers) {
       if(container.id === boardId) {
-        container.tasks.push(      {
+        container.tasks.push({
           name: "New task",
           createdAt: new Date().toLocaleDateString(),
-          author: "Adrian",
+          author: {
+            id: 1,
+            name: 'Karolina',
+            email: 'test@test.com',
+            password: '1234',
+            verificationCode: 'string',
+            imagePath: './assets/profile_1.png',
+            created: new Date().toLocaleDateString(),
+            active: true,
+          },
           id: String(Math.random() * 10000),
-          assignedTo: "",
+          assignedTo: {
+            id: 0,
+            name: '',
+            email: '',
+            password: '',
+            verificationCode: '',
+            imagePath: './assets/default-profile.png',
+            created: new Date().toLocaleDateString(),
+            active: true,
+          },
           description: "",
           subTasks: [],
           dueDate: new Date().toLocaleDateString(),
           contributors: [],
           comments: [],
-          trackedTime: "",
+          trackedTime: 0,
           isLocalTaskOnly: true,
+          completed: false,
+          active: true,
+          modified: new Date().toLocaleDateString(),
+          columnIndex: 1,
         })
       }
     }

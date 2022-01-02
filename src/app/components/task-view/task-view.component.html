@@ -3,11 +3,20 @@
     <div class="">
       <header>
         <div class="left">
-          <button>
+          <button class="status" [ngClass]="{'completed' : data.task.completed}">
             <mat-icon class="material-icons-outlined">check_circle_outline</mat-icon>
           </button>
-          <h1 class="header1__b" mat-dialog-title>{{data.task.name}}</h1>
-          <p>Created {{data.task.createdAt}} by {{data.task.author}}</p>
+          <div class="editable-name">
+<!--            <input matInput class="header1__b"-->
+<!--                   (focusout)="doChangeTaskName()"-->
+<!--                   [formControl]="viewState.taskNameFormControl"-->
+<!--                   [cdkTrapFocus]="true"-->
+<!--                   [disabled]="viewState.showInput"-->
+<!--                   (click)="viewState.showInput = !viewState.showInput"-->
+<!--                   (focusin)="doSelectText($event)">-->
+            <app-input-name-changer [boundValue]="data.task.name" (valueChanged)="doChangeTaskName($event)"></app-input-name-changer>
+          </div>
+          <p>Created {{data.task.createdAt}} by {{data.task.author.name}}</p>
         </div>
         <div class="right">
           <button mat-button class="primary-basic round">
@@ -19,23 +28,41 @@
 
       <section class="task-info">
         <div>
-          <button class="assignee">
-            <mat-icon class="material-icons-outlined">face</mat-icon>
-            <div class="sub-header2">{{data.task.assignedTo}}</div>
+          <button class="assignee" [matMenuTriggerFor]="assigneeMenu">
+            <img src="{{data.task.assignedTo.imagePath}}" class="profile-image" alt="" *ngIf="data.task.assignedTo !== null">
+            <mat-icon class="material-icons-outlined profile-image" *ngIf="data.task.assignedTo === null">face</mat-icon>
+            <div class="sub-header2">{{data.task.assignedTo ? data.task.assignedTo.name : '...'}}</div>
             <div class="sub-label">Assignee</div>
           </button>
+          <mat-menu #assigneeMenu="matMenu">
+            <button mat-menu-item>
+              <mat-icon class="material-icons-outlined">face</mat-icon>
+              <span>Karolina</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon class="material-icons-outlined">face</mat-icon>
+              <span>Jack</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon class="material-icons-outlined">face</mat-icon>
+              <span>John</span>
+            </button>
+          </mat-menu>
         </div>
 
         <div>
-          <button class="due-date">
-            <div class="sub-header2">{{data.task.dueDate}}</div>
+          <input matInput [matDatepicker]="picker" (dateChange)="onCalendarChanged($event)" style="height: 0;width: 0;">
+          <mat-datepicker #picker class="hidden"></mat-datepicker>
+          <button class="due-date" (click)="isDatePickerVisible = !isDatePickerVisible; picker.open();">
+            <div class="sub-header2" *ngIf="data.task.dueDate">{{data.task.dueDate | amDateFormat: 'D/M/YYYY'}}</div>
+            <div class="sub-header2" *ngIf="!data.task.dueDate">...</div>
             <div class="sub-label">Due date</div>
           </button>
         </div>
 
         <div>
           <button class="track">
-            <div class="sub-header2">{{data.task.trackedTime}}</div>
+            <div class="sub-header2">{{data.task.trackedTime}}h</div>
             <div class="sub-label">Time tracked</div>
           </button>
         </div>
@@ -47,7 +74,7 @@
         <div class="content">
           <div class="item" *ngFor="let contributor of data.task.contributors">
             <button>
-              <mat-icon class="material-icons-outlined">face</mat-icon>
+              <img src="{{contributor.imagePath}}" alt="profileImg" class="profile-image">
               <span>{{contributor.name}}</span>
             </button>
           </div>
@@ -84,7 +111,7 @@
               <mat-icon class="material-icons-outlined">add</mat-icon>
               <span>Add subtask</span>
             </button>
-            <div class="total-subtask-time">{{data.task.totalTrackedSubtaskTime}}</div>
+            <div class="total-subtask-time" *ngIf="data.task.totalTrackedSubtaskTime && data.task.totalTrackedSubtaskTime > 0">{{data.task.totalTrackedSubtaskTime}}h</div>
           </div>
 
         </div>
@@ -116,16 +143,14 @@
 
     <div class="content">
       <div>
-        <div class="comment with-actions">
+        <div class="comment with-actions" *ngFor="let comment of data.task.comments">
           <div class="comment-actions">
             <div class="left">
-              <div class="action-item profileIcon">
-                <mat-icon class="material-icons-outlined">face</mat-icon>
-              </div>
-              <div>John Doe</div>
+              <img src="{{comment.author.imagePath}}" alt="" class="action-item profile-image">
+              <div>{{comment.author.name}}</div>
             </div>
             <div class="right">
-              <div>22.07.2021</div>
+              <div>{{comment.created}}</div>
 
               <button>
                 <mat-icon class="material-icons-outlined" [matMenuTriggerFor]="taskMenu">more_vert</mat-icon>
@@ -142,15 +167,12 @@
               </mat-menu>
             </div>
           </div>
-          <p class="text">Learn one way to build applications with Angular and reuse your code and abilities to build
-            apps for any deployment target. For web, mobile web, native mobile and native desktop.</p>
+          <p class="text">{{comment.description}}</p>
         </div>
 
         <form>
           <div class="comment new">
-            <div class="action-item profileIcon">
-              <mat-icon class="material-icons-outlined">face</mat-icon>
-            </div>
+            <img src="{{loggedUser.imagePath}}" alt="" class="action-item profile-image">
             <mat-form-field appearance="fill">
               <textarea matInput cdkTextareaAutosize placeholder="Write you message here.."></textarea>
             </mat-form-field>
@@ -163,7 +185,3 @@
     </div>
   </section>
 </div>
-<!--<mat-dialog-actions align="end">-->
-<!--  <button mat-button mat-dialog-close>Cancel</button>-->
-<!--  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>-->
-<!--</mat-dialog-actions>-->

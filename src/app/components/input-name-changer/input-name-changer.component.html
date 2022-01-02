@@ -1,0 +1,6 @@
+<input matInput class="header1__b"
+       (focusout)="doEmitIfValueChanged()"
+       [formControl]="viewState.taskNameFormControl"
+       [cdkTrapFocus]="true"
+       (click)="viewState.showInput = !viewState.showInput"
+       (focusin)="doSelectText($event)">

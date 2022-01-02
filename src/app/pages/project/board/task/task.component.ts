@@ -31,7 +31,8 @@ export class TaskComponent implements OnInit {
   }
 
   emitOpenTask(event: Event) {
-    if((event.target as HTMLElement).classList.contains('mat-menu-trigger')) {
+    console.log(event.target);
+    if((event.target as HTMLElement).classList.contains('clickable')) {
       return;
     }
     this.taskOpenAction.emit(this.taskData.id);

@@ -9,6 +9,7 @@ section {
   border-bottom: 1px solid $color-light-grey;
   padding-bottom: 10px;
   padding-top: 10px;
+  margin-bottom: 20px;
 
   .row {
     display: flex;
@@ -80,7 +81,7 @@ mat-card {
       }
     }
 
-    &.comment {
+    &.commented {
       .flag {
         background-color: $color-medium-grey;
       }

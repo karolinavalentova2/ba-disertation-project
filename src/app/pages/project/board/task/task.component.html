@@ -1,16 +1,14 @@
-<div (click)="emitOpenTask($event)">
+<div>
+  <div class="open-trigger" (click)="emitOpenTask($event)"></div>
   <form class="new-task-form">
     <mat-card-header>
-      <mat-card-title *ngIf="!taskData.isLocalTaskOnly">{{taskData.name}}</mat-card-title>
-      <mat-card-title *ngIf="taskData.isLocalTaskOnly">
+      <mat-card-title class="ignore-trigger" *ngIf="!taskData.isLocalTaskOnly">{{taskData.name}}</mat-card-title>
+      <mat-card-title class="ignore-trigger" *ngIf="taskData.isLocalTaskOnly">
         <div class="input-field">
-  <!--        <mat-form-field class="full-width" appearance="fill">-->
-  <!--          <mat-label>Task name</mat-label>-->
-            <input matInput placeholder="Ex. Bake the pizza" value="" (focusout)="doSaveNewTask()" [formControl]="viewState.newTaskFormControl" [cdkTrapFocusAutoCapture]="true" [cdkTrapFocus]="true">
-  <!--        </mat-form-field>-->
+            <input matInput placeholder="New task" value="" (focusout)="doSaveNewTask()" [formControl]="viewState.newTaskFormControl" [cdkTrapFocusAutoCapture]="true" [cdkTrapFocus]="true">
         </div>
       </mat-card-title>
-      <mat-icon class="material-icons-outlined" [matMenuTriggerFor]="taskMenu">more_vert</mat-icon>
+      <mat-icon class="material-icons-outlined ignore-trigger" [matMenuTriggerFor]="taskMenu">more_vert</mat-icon>
       <mat-menu #taskMenu="matMenu">
         <button mat-menu-item>
           <mat-icon>edit</mat-icon>
@@ -37,24 +35,25 @@
     <mat-card-actions>
 
       <div class="left">
-        <div class="action-item assignee active">
-          <mat-icon class="material-icons-outlined">face</mat-icon>
-        </div>
-        <div class="action-item due-date active">
-          <mat-icon class="material-icons">calendar_today</mat-icon>
-          <span>Dec 12</span>
-        </div>
-        <div class="action-item track active">
-          <mat-icon class="material-icons">schedule</mat-icon>
-          <span>1h</span>
-        </div>
+        <button class="action-item assignee ignore-trigger">
+          <mat-icon class="material-icons-outlined" *ngIf="!taskData.assignedTo">face</mat-icon>
+          <img src="{{taskData.assignedTo.imagePath}}" alt="" class="profile-image" *ngIf="taskData.assignedTo">
+        </button>
+        <button class="action-item due-date ignore-trigger">
+          <mat-icon class="material-icons" *ngIf="!taskData.dueDate">calendar_today</mat-icon>
+          <span *ngIf="taskData.dueDate">{{taskData.dueDate | amDateFormat: 'D/M/YYYY'}}</span>
+        </button>
+        <button class="action-item track ignore-trigger">
+          <mat-icon class="material-icons" *ngIf="taskData.trackedTime === 0">schedule</mat-icon>
+          <span *ngIf="taskData.trackedTime > 0">{{taskData.trackedTime}}h</span>
+        </button>
       </div>
 
       <div class="right">
-        <div class="action-item comment active">
+        <button class="action-item comment ignore-trigger" *ngIf="taskData.comments.length">
           <mat-icon class="material-icons-outlined">chat_bubble</mat-icon>
-          <span>1</span>
-        </div>
+          <span>{{taskData.comments.length}}</span>
+        </button>
       </div>
     </mat-card-actions>
   </form>

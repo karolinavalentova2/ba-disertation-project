@@ -32,6 +32,11 @@ import { ReportsComponent } from './pages/reports/reports.component';
 import {MatInputModule} from "@angular/material/input";
 import {A11yModule} from "@angular/cdk/a11y";
 import { SubtaskComponent } from './components/task-view/subtask/subtask.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import { InputNameChangerComponent } from './components/input-name-changer/input-name-changer.component';
+import {MomentModule} from "ngx-moment";
+import {MomentDateModule} from "@angular/material-moment-adapter";
 
 @NgModule({
   declarations: [
@@ -47,7 +52,8 @@ import { SubtaskComponent } from './components/task-view/subtask/subtask.compone
     TaskViewComponent,
     ProjectComponent,
     ReportsComponent,
-    SubtaskComponent
+    SubtaskComponent,
+    InputNameChangerComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +76,10 @@ import { SubtaskComponent } from './components/task-view/subtask/subtask.compone
     MatInputModule,
     ReactiveFormsModule,
     A11yModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MomentModule.forRoot(),
+    MomentDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -81,13 +81,13 @@ mat-card {
   &:hover {
     border: 1px solid #6200EE;
 
-    mat-card-header button mat-icon {
-      opacity: 1;
+    ::ng-deep app-task mat-card-header mat-icon {
+      opacity: 1 !important;
       transition: opacity 0.25s ease-out;
     }
 
-    mat-card-actions .left .inactive mat-icon {
-      opacity: 1;
+    ::ng-deep mat-card-actions .left .action-item mat-icon {
+      opacity: 1 !important;
       transition: opacity 0.25s ease-out;
     }
   }

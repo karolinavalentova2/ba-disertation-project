@@ -1,6 +1,7 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {NavigationService} from "../../services/navigation.service";
 import {Subscription} from "rxjs";
+import moment from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit, OnDestroy{
       //TODO: Remember this and get rid of it
       this.cdr.detectChanges();
     })
+    moment.locale('en-GB');
   }
 
   ngOnDestroy(): void {

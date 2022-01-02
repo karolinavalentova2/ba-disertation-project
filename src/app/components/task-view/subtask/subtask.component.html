@@ -2,9 +2,31 @@
   <mat-icon class="material-icons-outlined drag">drag_indicator</mat-icon>
   <span>{{taskData.name}}</span>
   <div>
-    <span>{{taskData.trackedTime}}</span>
+    <span *ngIf="taskData.trackedTime && taskData.trackedTime > 0">{{taskData.trackedTime}}h</span>
     <button class="btn">
-      <mat-icon class="material-icons">more_vertical</mat-icon>
+      <mat-icon class="material-icons" [matMenuTriggerFor]="taskMenu">more_vertical</mat-icon>
+      <mat-menu #taskMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>edit</mat-icon>
+          <span>Edit task name</span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>check_circle_outline</mat-icon>
+          <span>Mark complete</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>visibility</mat-icon>
+          <span>View detail</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>link</mat-icon>
+          <span>Copy task link</span>
+        </button>
+        <button mat-menu-item class="delete">
+          <mat-icon>delete</mat-icon>
+          <span>Delete task</span>
+        </button>
+      </mat-menu>
     </button>
   </div>
 </mat-card>
