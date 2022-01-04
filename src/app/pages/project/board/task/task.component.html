@@ -50,7 +50,7 @@
       </div>
 
       <div class="right">
-        <button class="action-item comment ignore-trigger" *ngIf="taskData.comments.length">
+        <button class="action-item comment ignore-trigger" *ngIf="taskData?.comments?.length">
           <mat-icon class="material-icons-outlined">chat_bubble</mat-icon>
           <span>{{taskData.comments.length}}</span>
         </button>

@@ -1,9 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {MatDialog} from "@angular/material/dialog";
 import {TaskViewComponent} from "../../../components/task-view/task-view.component";
 import {FormControl} from "@angular/forms";
-import {MockProjectBoard} from "../../../models/mockData";
 import {BoardModel} from "../../../models/boardModel";
 
 @Component({
@@ -12,6 +11,8 @@ import {BoardModel} from "../../../models/boardModel";
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit, OnDestroy {
+  @Input()
+  boards!: BoardModel[];
 
   public viewState = {
     newColumn: false,
@@ -23,8 +24,6 @@ export class BoardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
 
     }
-
-  containers: BoardModel[] = [...MockProjectBoard];
 
   ngOnInit(): void {
   }
@@ -41,11 +40,11 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   getConnectedList(): any[] {
-    return this.containers.map(x => `${x.id}`);
+    return this.boards.map(x => `${x.id}`);
   }
 
   dropGroup(event: CdkDragDrop<(any)[], any>) {
-    moveItemInArray(this.containers, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.boards, event.previousIndex, event.currentIndex);
   }
 
   openTask(taskId: string | number, boardId: string | number, isLocalTaskOnly?: boolean) {
@@ -74,82 +73,82 @@ export class BoardComponent implements OnInit, OnDestroy {
   doSaveNewColumn() {
     this.viewState.newColumn = false;
     if(!this.viewState.newColumnFormControl.value) { return }
-    this.containers.push({
-      id: parseInt(String(Math.random() * 1000)),
-      name: this.viewState.newColumnFormControl.value,
-      tasks: [],
-      project: 'project 1',
-      author: {
-        id: 1,
-        name: 'Karolina',
-        email: 'test@test.com',
-        password: '1234',
-        verificationCode: 'string',
-        imagePath: './assets/profile_1.png',
-        created: new Date().toLocaleDateString(),
-        active: true,
-      },
-      created: new Date().toLocaleDateString(),
-      active: true,
-      boardIndex: this.containers.length,
-    })
+    // this.containers.push({
+    //   id: parseInt(String(Math.random() * 1000)),
+    //   name: this.viewState.newColumnFormControl.value,
+    //   tasks: [],
+    //   project: {},
+    //   author: {
+    //     id: "1",
+    //     name: 'Karolina',
+    //     email: 'test@test.com',
+    //     password: '1234',
+    //     verificationCode: 'string',
+    //     imagePath: './assets/profile_1.png',
+    //     created: new Date().toLocaleDateString(),
+    //     active: true,
+    //   },
+    //   created: new Date().toLocaleDateString(),
+    //   active: true,
+    //   boardIndex: this.containers.length,
+    // })
 
     this.viewState.newColumnFormControl.reset();
   }
 
   doAddNewTask(boardId: string | number) {
-    for(let container of this.containers) {
+    for(let container of this.boards) {
       if(container.id === boardId) {
-        container.tasks.push({
-          name: "New task",
-          createdAt: new Date().toLocaleDateString(),
-          author: {
-            id: 1,
-            name: 'Karolina',
-            email: 'test@test.com',
-            password: '1234',
-            verificationCode: 'string',
-            imagePath: './assets/profile_1.png',
-            created: new Date().toLocaleDateString(),
-            active: true,
-          },
-          id: String(Math.random() * 10000),
-          assignedTo: {
-            id: 0,
-            name: '',
-            email: '',
-            password: '',
-            verificationCode: '',
-            imagePath: './assets/default-profile.png',
-            created: new Date().toLocaleDateString(),
-            active: true,
-          },
-          description: "",
-          subTasks: [],
-          dueDate: new Date().toLocaleDateString(),
-          contributors: [],
-          comments: [],
-          trackedTime: 0,
-          isLocalTaskOnly: true,
-          completed: false,
-          active: true,
-          modified: new Date().toLocaleDateString(),
-          columnIndex: 1,
-        })
+        // container.tasks.push({
+        //   name: "New task",
+        //   createdAt: new Date().toLocaleDateString(),
+        //   author: {
+        //     id: 1,
+        //     name: 'Karolina',
+        //     email: 'test@test.com',
+        //     password: '1234',
+        //     verificationCode: 'string',
+        //     imagePath: './assets/profile_1.png',
+        //     created: new Date().toLocaleDateString(),
+        //     active: true,
+        //   },
+        //   id: String(Math.random() * 10000),
+        //   assignedTo: {
+        //     id: 0,
+        //     name: '',
+        //     email: '',
+        //     password: '',
+        //     verificationCode: '',
+        //     imagePath: './assets/default-profile.png',
+        //     created: new Date().toLocaleDateString(),
+        //     active: true,
+        //   },
+        //   description: "",
+        //   subTasks: [],
+        //   dueDate: new Date().toLocaleDateString(),
+        //   contributors: [],
+        //   comments: [],
+        //   trackedTime: 0,
+        //   isLocalTaskOnly: true,
+        //   completed: false,
+        //   active: true,
+        //   modified: new Date().toLocaleDateString(),
+        //   columnIndex: 1,
+        // })
       }
     }
   }
 
   private doGetTaskById(boardId: string | number, taskId: string | number) {
     //TODO
-    const board = this.containers.filter(board => board.id === boardId);
-    if(board.length) {
-      for(let task of board[0].tasks) {
-        if(task.id === taskId) {
-          return task;
-        }
-      }
-    }
+    // const board = this.containers.filter(board => board.id === boardId);
+    // if(board.length) {
+    //   for(let task of board[0].tasks) {
+    //     if(task.id === taskId) {
+    //       return task;
+    //     }
+    //   }
+    // }
     return null;
   }
 }

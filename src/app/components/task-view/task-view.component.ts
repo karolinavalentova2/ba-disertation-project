@@ -46,42 +46,42 @@ export class TaskViewComponent implements OnInit {
   }
 
   addNewSubtask() {
-    this.data.task.subTasks.push({
-      name: "New task",
-      createdAt: new Date().toLocaleDateString(),
-      author: {
-        id: 1,
-        name: 'Karolina',
-        email: 'test@test.com',
-        password: '1234',
-        verificationCode: 'string',
-        imagePath: './assets/profile_1.png',
-        created: new Date().toLocaleDateString(),
-        active: true,
-      },
-      id: String(Math.random() * 10000),
-      assignedTo: {
-        id: 0,
-        name: '',
-        email: '',
-        password: '',
-        verificationCode: '',
-        imagePath: './assets/default-profile.png',
-        created: new Date().toLocaleDateString(),
-        active: true,
-      },
-      description: "",
-      subTasks: [],
-      dueDate: new Date().toLocaleDateString(),
-      contributors: [],
-      comments: [],
-      trackedTime: 0,
-      isLocalTaskOnly: true,
-      completed: false,
-      active: true,
-      modified: new Date().toLocaleDateString(),
-      columnIndex: 1,
-    })
+    // this.data.task.subTasks.push({
+    //   name: "New task",
+    //   createdAt: new Date().toLocaleDateString(),
+    //   author: {
+    //     id: 1,
+    //     name: 'Karolina',
+    //     email: 'test@test.com',
+    //     password: '1234',
+    //     verificationCode: 'string',
+    //     imagePath: './assets/profile_1.png',
+    //     created: new Date().toLocaleDateString(),
+    //     active: true,
+    //   },
+    //   id: String(Math.random() * 10000),
+    //   assignedTo: {
+    //     id: 0,
+    //     name: '',
+    //     email: '',
+    //     password: '',
+    //     verificationCode: '',
+    //     imagePath: './assets/default-profile.png',
+    //     created: new Date().toLocaleDateString(),
+    //     active: true,
+    //   },
+    //   description: "",
+    //   subTasks: [],
+    //   dueDate: new Date().toLocaleDateString(),
+    //   contributors: [],
+    //   comments: [],
+    //   trackedTime: 0,
+    //   isLocalTaskOnly: true,
+    //   completed: false,
+    //   active: true,
+    //   modified: new Date().toLocaleDateString(),
+    //   columnIndex: 1,
+    // })
   }
 
   doChangeTaskName(newName: string) {

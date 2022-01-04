@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NavigationService} from "../../services/navigation.service";
-import {MockInboxItem} from "../../models/mockData";
+import {NavigationService} from "../../services/component/navigation.service";
 import {InboxItemModel} from "../../models/inboxItemModel";
 
 @Component({
@@ -12,7 +11,7 @@ export class InboxComponent implements OnInit {
 
   constructor(private navigationService: NavigationService) { }
 
-  inboxItems: InboxItemModel[] = [...MockInboxItem];
+  inboxItems: InboxItemModel[] = [];
 
   renderItems: Array<{
     date: string,

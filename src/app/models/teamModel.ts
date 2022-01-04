@@ -1,15 +1,12 @@
 import {UserModel} from "./userModel";
 import {ProjectModel} from "./projectModel";
-import {TaskModel} from "./taskModel";
 
-export interface BoardModel {
+export interface TeamModel {
   id: string | number;
-  project: ProjectModel;
   author: UserModel;
   name: string;
-  active: boolean;
   created: string;
-  boardIndex: number;
+  active: boolean;
 
-  tasks: Array<TaskModel>
+  projects: ProjectModel[]
 }

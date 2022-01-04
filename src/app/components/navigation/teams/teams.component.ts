@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
 import {Router} from "@angular/router";
+import {Subscriber, Subscription} from "rxjs";
+import {TeamModel} from "../../../models/teamModel";
+import {TeamsService} from "../../../services/component/teams.service";
 
 
 interface ClickableMenuNode {
@@ -13,33 +16,6 @@ interface TeamMenuNode {
   name: string;
   children?: ClickableMenuNode[];
 }
-
-const TREE_DATA: TeamMenuNode[] = [
-  {
-    name: 'Iglass',
-    children: [
-      {name: 'John', projectId: 1, route: '/project'},
-      {name: 'Karolina', projectId: 2, route: '/project'},
-      {name: 'Peter', projectId: 4, route: '/project'},
-    ],
-  },
-  {
-    name: 'Azzure',
-    children: [
-      {name: 'John', projectId: 1, route: '/project'},
-      {name: 'Karolina', projectId: 2, route: '/project'},
-      {name: 'Peter', projectId: 4, route: '/project'},
-    ],
-  },
-  {
-    name: 'JetBrains',
-    children: [
-      {name: 'John', projectId: 1, route: '/project'},
-      {name: 'Karolina', projectId: 2, route: '/project'},
-      {name: 'Peter', projectId: 4, route: '/project'},
-    ]
-  },
-];
 
 /** Flat node with expandable and level information */
 interface ExampleFlatNode {
@@ -53,7 +29,7 @@ interface ExampleFlatNode {
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.scss']
 })
-export class TeamsComponent implements OnInit {
+export class TeamsComponent implements OnInit, OnDestroy {
 
   private _transformer = (node: TeamMenuNode, level: number) => {
     return {
@@ -62,7 +38,7 @@ export class TeamsComponent implements OnInit {
       level: level,
     };
   };
-
+  private teamsSubscriber!: Subscription;
   treeControl = new FlatTreeControl<ExampleFlatNode>(
     node => node.level,
     node => node.expandable,
@@ -77,17 +53,47 @@ export class TeamsComponent implements OnInit {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor(private router: Router) {
-    this.dataSource.data = TREE_DATA;
+  constructor(private router: Router, private teamsService: TeamsService) {
+    // this.dataSource.data = TREE_DATA;
+  }
+
+  ngOnDestroy(): void {
+       this.teamsSubscriber.unsubscribe();
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
   ngOnInit(): void {
+    this.teamsSubscriber = this.teamsService.doSubsToTeams().subscribe((teams: TeamModel[]) => {
+      console.log({teams})
+      const tmpArr: TeamMenuNode[] = [];
+      teams.forEach((team) => {
+        const tmpEntry: {name: string, children: any} = {
+          name: team.name,
+          children: [],
+        }
+
+        if(Array.isArray(team.projects)) {
+          team.projects.forEach((project) => {
+            tmpEntry.children.push({
+              name: project.name,
+              projectId: project.id,
+              route: '/project'
+            })
+          })
+        }
+
+        tmpArr.push(tmpEntry);
+      })
+
+      this.dataSource.data = [...tmpArr];
+    })
+
+    this.teamsService.doRequestTeams();
   }
 
   doNavigate(nodeName: string): void {
-    for(let parent of TREE_DATA) {
+    for(let parent of this.dataSource.data) {
       if(parent.children) {
         const node = parent.children.filter(node => node.name === nodeName);
         if(node[0]) {

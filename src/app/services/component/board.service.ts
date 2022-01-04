@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BoardModel} from "../models/boardModel";
-import {MockProjectBoard} from "../models/mockData";
+import {BoardModel} from "../../models/boardModel";
 import {Observable, Subject} from "rxjs";
 
 @Injectable({
@@ -11,7 +10,7 @@ export class BoardService {
 
   private boardDataSubject: Subject<BoardModel[]> = new Subject<BoardModel[]>()
   //TODO: Hook real comm service
-  private communicationServiceMock = () => { return [...MockProjectBoard] }
+  private communicationServiceMock = () => { return [] }
   constructor() { }
 
   public doGetAllBoardDataByProjectId(projectId: string | number): void {

@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {NavigationService} from "../../services/navigation.service";
+import {NavigationService} from "../../services/component/navigation.service";
 import {Subscription} from "rxjs";
 import moment from 'moment';
 
