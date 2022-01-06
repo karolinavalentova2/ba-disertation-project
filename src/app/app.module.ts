@@ -37,6 +37,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import { InputNameChangerComponent } from './components/input-name-changer/input-name-changer.component';
 import {MomentModule} from "ngx-moment";
 import {MomentDateModule} from "@angular/material-moment-adapter";
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -81,7 +82,7 @@ import {MomentDateModule} from "@angular/material-moment-adapter";
     MomentModule.forRoot(),
     MomentDateModule,
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
