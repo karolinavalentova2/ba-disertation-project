@@ -16,7 +16,7 @@
 <!--                   (focusin)="doSelectText($event)">-->
             <app-input-name-changer [boundValue]="data.task.name" (valueChanged)="doChangeTaskName($event)"></app-input-name-changer>
           </div>
-          <p>Created {{data.task.createdAt}} by {{data.task.author.name}}</p>
+          <p>Created {{data.task.createdAt}} by {{data.task.author?.name ? data.task.author!.name : "Unknown"}}</p>
         </div>
         <div class="right">
           <button mat-button class="primary-basic round">

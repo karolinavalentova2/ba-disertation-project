@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { NavigationService } from './navigation.service';
+import {Observable} from "rxjs";
 
 describe('NavigationService', () => {
   let service: NavigationService;

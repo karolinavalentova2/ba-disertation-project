@@ -1,16 +1,19 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {MatDialog} from "@angular/material/dialog";
 import {TaskViewComponent} from "../../../components/task-view/task-view.component";
 import {FormControl} from "@angular/forms";
 import {BoardModel} from "../../../models/boardModel";
+import {CommentsService} from "../../../services/component/comments.service";
+import {AuthService} from "../../../services/api/auth.service";
+import {BoardService} from "../../../services/component/board.service";
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent implements OnInit, OnDestroy {
+export class BoardComponent {
   @Input()
   boards!: BoardModel[];
 
@@ -19,15 +22,12 @@ export class BoardComponent implements OnInit, OnDestroy {
     newColumnFormControl: new FormControl()
   }
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private commentService: CommentsService, private authService: AuthService, private boardsService: BoardService) { }
 
-  ngOnDestroy(): void {
-
-    }
-
-  ngOnInit(): void {
-  }
-
+  /**
+   * @description Handles the change in board or position for a task inside a board
+   * @param event
+   */
   dropItem(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -39,19 +39,25 @@ export class BoardComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * @description Returns an array of the ids of all the boards in the project.
+   */
   getConnectedList(): any[] {
     return this.boards.map(x => `${x.id}`);
   }
-
+  /**
+   * @description Handles the change in position of a board in the boards array when a board is moved
+   */
   dropGroup(event: CdkDragDrop<(any)[], any>) {
     moveItemInArray(this.boards, event.previousIndex, event.currentIndex);
   }
 
-  openTask(taskId: string | number, boardId: string | number, isLocalTaskOnly?: boolean) {
+  async openTask(taskId: string, boardId: string | number, isLocalTaskOnly?: boolean) {
     if(isLocalTaskOnly) { return }
     const task = this.doGetTaskById(boardId, taskId);
     if(!task) { return; }
-    console.log(task)
+    task.comments = [...await this.commentService.doRequestCommentsByTaskId(taskId)];
+
     const dialogRef = this.dialog.open(TaskViewComponent, {
       panelClass: 'task-view-dialog-container',
       data: {
@@ -73,82 +79,60 @@ export class BoardComponent implements OnInit, OnDestroy {
   doSaveNewColumn() {
     this.viewState.newColumn = false;
     if(!this.viewState.newColumnFormControl.value) { return }
-    // this.containers.push({
-    //   id: parseInt(String(Math.random() * 1000)),
-    //   name: this.viewState.newColumnFormControl.value,
-    //   tasks: [],
-    //   project: {},
-    //   author: {
-    //     id: "1",
-    //     name: 'Karolina',
-    //     email: 'test@test.com',
-    //     password: '1234',
-    //     verificationCode: 'string',
-    //     imagePath: './assets/profile_1.png',
-    //     created: new Date().toLocaleDateString(),
-    //     active: true,
-    //   },
-    //   created: new Date().toLocaleDateString(),
-    //   active: true,
-    //   boardIndex: this.containers.length,
-    // })
+
+    const tmpBoardData = {
+      name: this.viewState.newColumnFormControl.value,
+      tasks: [],
+      project: this.boards[0].project,
+      author_fk: this.authService.doReturnLoggedUser().id,
+      id: "NEW",
+      created: new Date().toLocaleDateString(),
+      active: true,
+      boardIndex: this.boards.length - 1
+    }
+
+    this.boardsService.doSaveNewBoard(tmpBoardData).then(() => {
+      this.boards.push(tmpBoardData)
+    })
 
     this.viewState.newColumnFormControl.reset();
   }
 
-  doAddNewTask(boardId: string | number) {
+  doAddNewTask(boardId: string) {
     for(let container of this.boards) {
       if(container.id === boardId) {
-        // container.tasks.push({
-        //   name: "New task",
-        //   createdAt: new Date().toLocaleDateString(),
-        //   author: {
-        //     id: 1,
-        //     name: 'Karolina',
-        //     email: 'test@test.com',
-        //     password: '1234',
-        //     verificationCode: 'string',
-        //     imagePath: './assets/profile_1.png',
-        //     created: new Date().toLocaleDateString(),
-        //     active: true,
-        //   },
-        //   id: String(Math.random() * 10000),
-        //   assignedTo: {
-        //     id: 0,
-        //     name: '',
-        //     email: '',
-        //     password: '',
-        //     verificationCode: '',
-        //     imagePath: './assets/default-profile.png',
-        //     created: new Date().toLocaleDateString(),
-        //     active: true,
-        //   },
-        //   description: "",
-        //   subTasks: [],
-        //   dueDate: new Date().toLocaleDateString(),
-        //   contributors: [],
-        //   comments: [],
-        //   trackedTime: 0,
-        //   isLocalTaskOnly: true,
-        //   completed: false,
-        //   active: true,
-        //   modified: new Date().toLocaleDateString(),
-        //   columnIndex: 1,
-        // })
+        container.tasks.push({
+          name: "New task",
+          createdAt: new Date().toISOString(),
+          id: "NEW",
+          description: "",
+          assignedTo: null,
+          author_fk: this.authService.doReturnLoggedUser().id,
+          dueDate: null,
+          contributors: [],
+          comments: [],
+          trackedTime: 0,
+          isLocalTaskOnly: true,
+          completed: false,
+          active: true,
+          modified: new Date().toISOString(),
+          columnIndex: container.tasks.length - 1,
+          column: container,
+          subTasks: [],
+        })
       }
     }
   }
 
   private doGetTaskById(boardId: string | number, taskId: string | number) {
-    //TODO
-    // const board = this.containers.filter(board => board.id === boardId);
-    // if(board.length) {
-    //   for(let task of board[0].tasks) {
-    //     if(task.id === taskId) {
-    //       return task;
-    //     }
-    //   }
-    // }
+    const board = this.boards.filter(board => board.id === boardId);
+    if(board.length) {
+      for(let task of board[0].tasks) {
+        if(task.id === taskId) {
+          return task;
+        }
+      }
+    }
     return null;
   }
 }

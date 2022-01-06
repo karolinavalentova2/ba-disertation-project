@@ -26,10 +26,7 @@
     <h2 (click)="doCreateColumn()" *ngIf="!viewState.newColumn">New column</h2>
 
     <form class="new-column-form" *ngIf="viewState.newColumn">
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Column name</mat-label>
-        <input matInput placeholder="Ex. To Do" value="" (focusout)="doSaveNewColumn()" [formControl]="viewState.newColumnFormControl" [cdkTrapFocusAutoCapture]="true" [cdkTrapFocus]="true">
-      </mat-form-field>
+      <input matInput placeholder="Ex. To Do" class="new-column-input" value="" (focusout)="doSaveNewColumn()" [formControl]="viewState.newColumnFormControl" [cdkTrapFocusAutoCapture]="true" [cdkTrapFocus]="true">
     </form>
   </div>
 </div>

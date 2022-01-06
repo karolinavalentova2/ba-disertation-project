@@ -3,13 +3,14 @@ import {ProjectModel} from "./projectModel";
 import {TaskModel} from "./taskModel";
 
 export interface BoardModel {
-  id: string | number;
+  id: string;
   project: ProjectModel;
-  author: UserModel;
+  author?: UserModel;
   name: string;
   active: boolean;
   created: string;
   boardIndex: number;
 
-  tasks: Array<TaskModel>
+  tasks: Array<TaskModel>;
+  author_fk?: string;
 }

@@ -1,10 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from "@angular/material/tree";
 import {Router} from "@angular/router";
-import {Subscriber, Subscription} from "rxjs";
-import {TeamModel} from "../../../models/teamModel";
 import {TeamsService} from "../../../services/component/teams.service";
+import {TeamModel} from "../../../models/teamModel";
 
 
 interface ClickableMenuNode {
@@ -29,7 +28,7 @@ interface ExampleFlatNode {
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.scss']
 })
-export class TeamsComponent implements OnInit, OnDestroy {
+export class TeamsComponent implements OnInit {
 
   private _transformer = (node: TeamMenuNode, level: number) => {
     return {
@@ -38,7 +37,6 @@ export class TeamsComponent implements OnInit, OnDestroy {
       level: level,
     };
   };
-  private teamsSubscriber!: Subscription;
   treeControl = new FlatTreeControl<ExampleFlatNode>(
     node => node.level,
     node => node.expandable,
@@ -53,43 +51,38 @@ export class TeamsComponent implements OnInit, OnDestroy {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor(private router: Router, private teamsService: TeamsService) {
-    // this.dataSource.data = TREE_DATA;
-  }
-
-  ngOnDestroy(): void {
-       this.teamsSubscriber.unsubscribe();
-  }
+  constructor(private router: Router, private teamsService: TeamsService) {}
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
-  ngOnInit(): void {
-    this.teamsSubscriber = this.teamsService.doSubsToTeams().subscribe((teams: TeamModel[]) => {
-      console.log({teams})
-      const tmpArr: TeamMenuNode[] = [];
-      teams.forEach((team) => {
-        const tmpEntry: {name: string, children: any} = {
-          name: team.name,
-          children: [],
-        }
+  async ngOnInit() {
+    this.teamsService.doRequestTeams().then((teams) => {
+      this.doHandleTeamsResponse(teams);
+    });
+  }
 
-        if(Array.isArray(team.projects)) {
-          team.projects.forEach((project) => {
-            tmpEntry.children.push({
-              name: project.name,
-              projectId: project.id,
-              route: '/project'
-            })
+  private doHandleTeamsResponse(teams: TeamModel[]) {
+    const tmpArr: TeamMenuNode[] = [];
+    teams.forEach((team) => {
+      const tmpEntry: {name: string, children: any} = {
+        name: team.name,
+        children: [],
+      }
+
+      if(Array.isArray(team.projects)) {
+        team.projects.forEach((project) => {
+          tmpEntry.children.push({
+            name: project.name,
+            projectId: project.id,
+            route: '/project'
           })
-        }
+        })
+      }
 
-        tmpArr.push(tmpEntry);
-      })
-
-      this.dataSource.data = [...tmpArr];
+      tmpArr.push(tmpEntry);
     })
 
-    this.teamsService.doRequestTeams();
+    this.dataSource.data = [...tmpArr];
   }
 
   doNavigate(nodeName: string): void {

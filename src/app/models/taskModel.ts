@@ -3,10 +3,10 @@ import {BoardModel} from "./boardModel";
 import {CommentModel} from "./commentModel";
 
 export interface TaskModel {
-  id: string | number;
-  column: BoardModel;
-  subTasks: Array<TaskModel>;
-  author: UserModel;
+  id: string;
+  column?: BoardModel;
+  // subTasks: Array<TaskModel> | [];
+  author?: UserModel;
   assignedTo: UserModel | null;
   name: string;
   createdAt: string;
@@ -17,7 +17,7 @@ export interface TaskModel {
   completed: boolean;
   modified: string;
   columnIndex: number;
-
+  subTasks: TaskModel[];
   contributors: Array<{
     name: string,
     id: string | number
@@ -27,4 +27,5 @@ export interface TaskModel {
   totalTrackedSubtaskTime?: number,
   isLocalTaskOnly?: boolean;
   comments: Array<CommentModel>
+  author_fk?: string;
 }

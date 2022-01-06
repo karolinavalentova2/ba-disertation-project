@@ -2,7 +2,7 @@
   <mat-tab label=""><div class="view view-w-tab">
 
     <section *ngFor="let section of renderItems">
-      <h3 class="header3__b">{{section.date}}</h3>
+      <h3 class="header3__b">{{section.date | amDateFormat: 'D/M/YYYY'}}</h3>
 
       <div class="row" *ngFor="let inboxItem of section.items">
         <div class="time">09:15</div>
@@ -10,7 +10,7 @@
         <mat-card>
           <a href="#"></a>
 
-          <div class="profile-active {{inboxItem.type}}">
+          <div class="profile-active {{inboxItem.type.name.toLowerCase()}}">
             <mat-icon class="material-icons-outlined">face</mat-icon>
             <div class="flag flag-inbox-item">
               <mat-icon class="material-icons-outlined">chat_bubble</mat-icon>
@@ -18,19 +18,19 @@
           </div>
 
           <div class="top">
-            <span class="sub-header2">{{inboxItem.type}}:</span>
-            <span class="sub-header2__b"><a href="#">{{inboxItem.task}}</a></span>
+            <span class="sub-header2">{{inboxItem.type.name}}:</span>
+            <span class="sub-header2__b"><a href="#">{{inboxItem.task.name}}</a></span>
           </div>
 
           <div class="bottom">
             <span class="user-name">{{inboxItem.author.name}}</span>
             <span class="links">
               <span>
-                <span>{{inboxItem.team}}</span>
+                <span>{{inboxItem.team?.name}}</span>
                 <mat-icon class="material-icons-outlined">chevron_right</mat-icon>
               </span>
               <span>
-                <span>{{inboxItem.project}}</span>
+                <span>{{inboxItem.project?.name}}</span>
                 <mat-icon class="material-icons-outlined">chevron_right</mat-icon></span>
             </span>
           </div>
