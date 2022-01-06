@@ -1,14 +1,8 @@
 @import "../../../../styles/general/colors";
+@import "../../../../styles/general/cards";
 
 mat-card {
-  padding: 0 0 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 7px;
-  background-color: $color-white;
-  border: 1px solid $color-veryLight-grey;
-  border-radius: 6px;
+  @include mat-card;
 
   &:hover {
     cursor: pointer;

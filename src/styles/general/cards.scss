@@ -1,0 +1,12 @@
+@import "./colors";
+
+@mixin mat-card {
+  padding: 0 0 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 7px;
+  background-color: $color-white;
+  border: 1px solid $color-veryLight-grey;
+  border-radius: 6px;
+}

@@ -1,9 +1,5 @@
 @import "./colors";
 
-//::ng-deep .mat-tab-header {
-//  background-color: $color-white;
-//}
-
 .view {
   padding: 20px;
 }
@@ -16,11 +12,6 @@
 }
 
 .board-view {
-  //overflow-x: auto;
-  //max-width: calc(100vw - 200px);
-  //height: calc(100vh - 173px);
-  //padding: 20px;
-
   app-board > .cdk-drop-list {
     display: flex;
     height: 100%;
@@ -68,10 +59,6 @@
       padding-right: 50px;
     }
 
-    &:focus-within {
-      //background-color: #212121;
-    }
-
     &.mat-tab-label-active {
       .mat-tab-label-content {
         position: relative;
@@ -97,39 +84,3 @@
 .mat-toolbar {
   background-color: $color-white;
 }
-
-
-//app-my-projects,
-//app-active-projects,
-//app-completed-projects,
-//app-inbox {
-//  display: flex;
-//  flex-direction: row;
-//}
-//
-//.main-view {
-//  width: calc(100% - 17rem);
-//  padding: 3rem 5rem;
-//  margin-left: 17rem;
-//
-//  &__header {
-//    padding-bottom: 4rem;
-//    display: flex;
-//    justify-content: space-between;
-//
-//    &__headline {
-//      h1 {
-//        color: $color-dark-grey;
-//        padding-bottom: 1rem;
-//      }
-//
-//      p {
-//        color: $color-medium-grey;
-//      }
-//    }
-//
-//    &__buttons {
-//
-//    }
-//  }
-//}
