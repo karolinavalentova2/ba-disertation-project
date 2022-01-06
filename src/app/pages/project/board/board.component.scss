@@ -93,8 +93,6 @@ mat-card {
   }
 }
 
-input.new-column-input {
-  background-color: $color-white;
-  border: none;
-  font-size: 1.8rem;
+.new-column-form input {
+  @include new-column-input;
 }

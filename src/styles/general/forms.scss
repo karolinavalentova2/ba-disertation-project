@@ -10,5 +10,10 @@ input {
   padding-left: 5px;
 }
 
+@mixin new-column-input {
+  background-color: $color-white;
+  border: none;
+  font-size: 1.8rem;
+}
 
 

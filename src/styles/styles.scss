@@ -56,14 +56,6 @@ h1, h2, h3, h4, h5, h6 {
   display: none !important;
 }
 
-//mat-card:hover {
-//  mat-card-header button mat-icon {
-//    opacity: 1;
-//    transition: opacity 0.25s ease-out;
-//  }
-//
-//  mat-card-actions .left .action-item mat-icon {
-//    opacity: 1;
-//    transition: opacity 0.25s ease-out;
-//  }
-//}
+@mixin ignore-trigger {
+  z-index: 2;
+}
